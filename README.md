@@ -1,76 +1,51 @@
-# typecho_login
-typecho登陆注册插件支持免申请第三方应用
-目前支持的快捷登录：
-QQ 微博 百度 钉钉 钉钉V2版本 Gitee码云 Github 华为 Gitlab 阿里云 支付宝 小米 开源中国 领英 微信 企业微信 飞书 微软 coding Google
+# Typecho Casdoor登录插件
 
-# 演示站
-https://www.gumengya.com/
+Typecho Casdoor OAuth2登录插件，支持Casdoor身份认证
 
+# 功能特性
+
+- 支持Casdoor OAuth2登录
+- 支持账号绑定和解绑
+- 新页面跳转授权
+- 简洁的配置界面
 
 # 使用方法
-----
-下载之后把插件丢到 `plugins` 目录 目录名改成 `GmLogin`
-下面代码可以输入登陆注册以及找回密码链接
 
+下载之后把插件丢到 `plugins` 目录，目录名改成 `OAuth`
 
-    <?php GmLogin_Plugin::url('login'); //输出登陆url ?>
-    <?php GmLogin_Plugin::url('register'); //输出注册url ?>
-    <?php GmLogin_Plugin::url('forget'); //输出找回密码url ?>
-    <?php GmLogin_Plugin::oauth(); //单独输出快捷登录按钮 ?>
-    
+## 配置
 
+1. 在插件设置中配置Casdoor相关信息：
+   - Casdoor服务器地址（例如：https://door.casdoor.com）
+   - Casdoor客户端ID
+   - Casdoor客户端密钥
+   - Casdoor组织名称
+   - Casdoor应用名称
+2. 将插件设置中显示的回调地址添加到Casdoor应用的回调URL列表中
 
-# 支持第三方登陆
+## 使用
 
-1. 钉钉
-2. QQ
-3. 百度
-4. gitee码云
-5. github
-6. 微博
-7. 华为
-8. Gitlab
-9. 阿里云
-10. 支付宝
-11. 小米
-12. 开源中国
-13. 领英
-14. 微信
-15. 企业微信
-16. 微软
-17. 飞书
-18. 钉钉V2
-19. coding
-20. Google
+在模板中添加Casdoor登录按钮：
 
-会陆续新增其他站点的支持
+```php
+<?php OAuth_Plugin::oauth(); //输出Casdoor登录按钮 ?>
+```
 
+或者直接输出登录链接：
+
+```php
+<?php echo OAuth_Plugin::url('login'); //输出登录URL ?>
+```
+
+登录后会自动跳转到Casdoor授权页面，授权完成后回调到Typecho完成登录。
 
 # 版本
-v1.2
-1. 修复已知BUG
-2. 修复不存在用户登录时注册失败问题
-3. 新增coding登录
-4. 新增Google登录
-5. 修复原版本接口失效问题(原来版本已经无法使用)
 
-v1.1.1
-1. 快捷登录完善信息
-2. 快捷登录绑定已有账号
-3. 快捷登录注册并绑定新账号
-4. 新增钉钉官方V2.0登录
-5. 修改快捷登录失败提示信息页面
-
-v1.1
-1. 修复来源链接获取失败跳转到首页bug
-2. 把集成登录写到一个插件 无需typecho_Oauth插件即可开启第三方登录
-3. 新增设置logo选项
-4. 新增设置icon图标选项
-5. 修改电脑版使用弹窗打开授权页面
-
-v1.0
-1. 新增注册
-2. 新增登陆
-3. 新增找回密码
-4. 新增支持极验
-2. 新增第三方登陆
+v2.0
+1. 插件重命名为OAuth
+2. 数据库表名改为oauth
+3. 所有类名和路由改为OAuth
+4. 优化代码结构
+5. 修复用户创建时用户名重复问题
+6. 添加删除用户时自动清理oauth数据
+7. 删除解绑功能，只允许绑定
